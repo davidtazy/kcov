@@ -14,8 +14,9 @@ def generate(data_in, base_name):
 
 	print("};")
 	print("GeneratedData %s_data(%s_data_raw, sizeof(%s_data_raw));" % (base_name, base_name, base_name))
-
+import os
 if __name__ == "__main__":
+	
 	if len(sys.argv) < 3 or (len(sys.argv) - 1) % 2 != 0:
 		print("Usage: bin-to-source.py <file> <base-name> [<file2> <base-name2>]")
 		sys.exit(1)
@@ -27,8 +28,10 @@ if __name__ == "__main__":
 
 	for i in range(1,len(sys.argv), 2):
 		file = sys.argv[i]
+		
 		base_name = sys.argv[i + 1]
-
+		if not os.path.exists(file):
+			raise ValueError("bin-to-c-source: cwd = {} file = {}".format(os.getcwd(),file))
 		f = open(file, "rb")
 		data = f.read()
 		f.close()
