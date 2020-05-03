@@ -307,11 +307,10 @@ target_link_libraries(kcov_system_lib
     "${DL_LIBRARY}"
 )
 
-
 add_custom_command(
     OUTPUT library.cc
     COMMAND "${CMAKE_CURRENT_SOURCE_DIR}/bin-to-c-source.py"
-            ../lib/lib${SOLIB}.so
+        $<TARGET_FILE:${SOLIB}>
             __library
         > library.cc
     DEPENDS
